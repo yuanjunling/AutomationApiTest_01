@@ -1,0 +1,7 @@
+{
+    "files.encoding": "utf8bom",
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter"
+    },
+    "python.formatting.provider": "none"
+}

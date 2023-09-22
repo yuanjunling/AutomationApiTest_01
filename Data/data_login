@@ -1,0 +1,14 @@
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate
+Accept-Language: zh-CN
+clientType: 2
+Connection: keep-alive
+Content-Length: 28
+Content-Type: application/json
+Host: api-uat.yjdfmall.com
+Origin: http://app-uat.yjdfmall.com
+Referer: http://app-uat.yjdfmall.com/
+token: licjf40q4scstcidlu07lmset6
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36
+version: 1.0
+X-Requested-With: XMLHttpRequest
