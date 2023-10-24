@@ -1,0 +1,195 @@
+1：虚拟机连接方式：ip：10.0.2.196，username：admin ，pasword：YANfa2.196
+2：公司邮箱：yuanjunling@di-tel.com/Admin@890903
+3.VPN：yuanjunling /  ditel@yjl
+
+03项目启动：/etc/init.d/ditel_ant_info start  ditel_ant_info -d
+项目关闭：/etc/init.d/ditel_ant_info stop
+ps |grep ditel ditel_ant_info -d
+
+ditel_app_server -i 192.168.0.3 -p 15101 -e eth1 -d
+
+ ditel_app_server -i 192.168.0.3 -p 15102  -e eth2 &
+
+
+/etc/init.d/ditel_ant_info  disable
+
+/etc/init.d/ditel_ant_info  stop
+
+
+ditel_app_server -i 192.168.111.222 -p 15101 -d
+
+ditel_app_server -i 192.168.111.222 -p 15102 &
+
+vi /etc/config/ditel_ant_info.config
+
+for /l %a in (1,1,1000) do python -u "e:\AutomationApiTest_01\Case\Dt_Case\Api_Case\Http_Api_Case\Antenna_03tk03_ACU_API_Case.py"
+
+echo 89 > /sys/class/gpio/export
+cat /sys/class/gpio/export
+
+route add default gw 192.168.1.1 设置网关
+
+
+SIP开发服务器： 10.0.2.195
+账户：root 
+密码：DITELkeji2.195
+
+视频流媒体服务器： 10.0.2.187
+账户：root 
+密码：DITELkeji@2.187
+
+
+
+
+
+默认推流：
+ffmpeg -re -i F:/video/bojc.mp4 -flvflags no_duration_filesize -c copy -f flv rtmp://10.0.2.187/live/livestream
+
+ H.264 编码推流:
+ ffmpeg -re -i input -c:v libx264 -preset veryfast -maxrate 3000k -bufsize 6000k -pix_fmt yuv420p -g 50 -c:a aac -ar 44100 -b:a 96k -f flv rtmp://server/live/stream
+
+ ffmpeg -re -i F:\video\bojc.mp4 -c:v libx264 -b:v 1500k -bufsize 3000k -flvflags no_duration_filesize -preset veryfast -x264-params crf=25 -s 640x360 -f flv rtmp://10.0.2.187/live/livestream2
+
+ffmpeg -re -i E:\video\bojc.mp4 -c:v libx264 -b:v 1500k -bufsize 3000k -flvflags no_duration_filesize -preset faster -x264-params crf=25 -s 640x360 -g 50 -f flv rtmp://10.0.2.187/live/livestream
+
+ H.265 编码推流:
+
+ffmpeg -i F:\video\bojc.mp4 -c:v libx265 -flvflags no_duration_filesize -preset veryfast -x265-params crf=25 -f flv rtmp://10.0.2.187/live/livestream1
+
+
+拉流：
+
+ffplay rtmp://10.0.2.187/live/livestream1
+
+ffplay rtmp://10.0.2.187/live/livestream1 -fflags nobuffer -flags low_delay -framedrop -strict experimental
+
+ffmpeg -i rtmp://10.0.2.187/live/livestream -c copy F:/video/laliu/dump265.flv
+
+提取音频:
+ffmpeg -i input.mp4 -vn -acodec copy output.aac
+-i 指定输入文件;-vn 不处理视频;-acodec copy 指定直接复制音频流。
+提取视频:
+ffmpeg -i input.mp4 -an -vcodec copy output.mp4
+ 
+-an 不处理音频;-vcodec copy 直接复制视频流。
+转换格式:
+ffmpeg -i input.mp4 -acodec aac -vcodec h264 output.mp4
+-acodec 指定音频编码;-vcodec 指定视频编码。
+调整分辨率:
+ffmpeg -i input.mp4 -vf scale=720:480 output.mp4 
+-vf 指定视频过滤链,scale过滤器调整分辨率。
+调整码率:
+ffmpeg -i input.mp4 -b:v 1000k -maxrate 1200k -bufsize 1000k output.mp4
+-b:v 设置视频码率;-maxrate 最大码率;-bufsize 缓冲区大小。
+转换GIF:
+ffmpeg -i input.mp4 -t 5 output.gif
+-t 设置转换时长为5秒。
+剪切视频:
+ffmpeg -i input.mp4 -ss 00:01:00 -to 00:02:00 -c copy cut.mp4
+-ss 起始时间;-to 结束时间;-c copy 流复制避免重新编码。
+添加字幕:
+ffmpeg -i input.mp4 -vf subtitles=subtitles.srt out.mp4
+-vf subtitles 过滤器加载字幕文件。
+
+
+关键参数说明:
+- -re 对实时输入源进行实时固定码率编码
+- -b:v 1500k -bufsize 1500k -b 选项,直接指定目标码率 目标码率是1500kbps,那么bufsize 设置为1500kbps的2-3倍,即3000-4500k左右
+- -i input.mp4:输入视频文件。可以替换为其他视频源。
+- -c:v libx265:使用libx265编码器进行H.265视频编码。
+- -preset veryfast:以veryfast预设进行编码,速度快但质量略差。可以调整为slow等获得更好质量。
+- -x265-params crf=25:设置CRF(质量)值为25。越小质量越好,但码率也越大。
+- -f flv:封装格式为flv。
+- rtmp://example.com/live/stream:RTMP推流地址。将example.com替换为实际地址。
+-flv封装格式支持H.265,但部分播放器可能不支持,这时可以尝试使用mp4或其他格式。
+-也可以通过-b:v等设置目标码率。开始可以设置不太高的码率,然后测试调整。
+-部分RTMP服务器需要验证,可以通过-f flv -rtmp_auth username:password推流。
+
+分辨率：
+1. 使用-s选项指定输出视频的分辨率:
+ffmpeg -i input.mp4 -s 640x360 output.mp4
+这将输出视频分辨率设置为640x360。
+2. 使用-vf选项进行缩放:
+ffmpeg -i input.mp4 -vf scale=720:-1 output.mp4
+这将视频缩放到宽度720,高度自动计算保持原始宽高比。
+3. 使用-filter:v选项指定视频滤波器:
+ffmpeg -i input.mp4 -filter:v scale=960:540 output.mp4
+同样指定输出为960x540分辨率。
+4. 使用-preset选项指定编码器预设,内置了不同的分辨率:
+ffmpeg -i input.mp4 -preset medium output.mp4
+medium预设一般对应分辨率在640x360左右。
+5. 指定CRF质量参数,降低CRF值可以提高分辨率:
+ffmpeg -i input.mp4 -crf 18 output.mp4 
+
+
+srt推流:
+ffmpeg -re -i F:\video\bojc.mp4 -c copy -f mpegts srt://10.0.2.187:10080?streamid=livestream
+ffmpeg -re -i F:\video\source.flv  -c:v libx264 -an -x264-params crf=25 -f mpegts srt://10.0.2.187:10080?streamid=livestream
+ffmpeg -re -i F:\video\source.flv  -c:v libx264 -an -x264-params crf=25 -f mpegts srt://10.0.2.187:10080?streamid=#!::r=live/livestream,m=publish
+
+- -re 表示按照帧率的速度读取输入文件
+- -i 指定输入视频和字幕文件
+- -c:v libx264 设置 h264 视频编码
+- -c:a aac 设置 aac 音频编码 
+- -c:s srt 设置将字幕编码为 srt 格式
+- -f srt 将字幕输出到管道
+- -c copy 直接流复制音视频流到输出,不重新编码
+- -f flv 设置输出为 flv 格式推到 rtmp 服务器
+- -f mp4 :封装为MP4格式
+- -f avi :封装为AVI格式
+- -f rtp :封装为RTP packets
+
+拉流
+ffmpeg -i srt://ip:port?streamid=xxx -c copy output.ts
+ffplay srt://10.0.2.187:10080?streamid=livestream
+
+主要改动:
+1. 将协议改为 srt://
+2. 指定 SRT 服务器的 IP 和端口
+3. 在 URL 参数中指定 streamid
+4. 不需要 app 和 stream_key 这些 RTMP 参数
+
+rtsp推流(srs暂时不支持)
+ffmpeg -re -i F:\video\source.flv -vcodec h264 -acodec aac -f rtsp -rtsp_transport udp rtsp://10.0.2.187/live/livestream
+
+
+udp推流
+ffmpeg -re -i F:\video\source.flv -vcodec h264 -f mpegts udp://10.0.2.187:8935/live/livestream
+
+udp拉流
+ffplay udp://10.0.2.187:8935/live/livestream
+
+
+
+WebRTC推拉流
+1. 用https://10.0.2.187:8088打开
+2. 导航到srs播放器
+3. 在WHIP中改端口1990， URL如https://10.0.2.187:1990/rtc/v1/whip/?app=live&stream=livestream，开始webrtc推流
+
+
+
+frame=  340 fps= 35 q=32.0 size=     180kB time=00:00:10.08 bitrate= 146.2kbits/s dup=0 drop=41 speed=1.04x 这些参数代表
+frame - 已处理的视频帧数,这里是340帧。
+fps - 视频帧率,此处是35帧/秒。
+q - 视频质量参数,可能代表视频压缩质量,数值越小质量越高。这里是32.
+size - 已处理视频的数据量,单位是字节(kB),此处是180kB。
+time - 处理时间,这里是10.08秒。
+bitrate - 视频比特率,这里是146.2千比特/秒(kbps)。
+dup - 重复的视频包数。0表示没有重复包。
+drop - 丢弃的视频包数。41表示丢弃了41个包。
+speed - 处理速度。1.04x表示处理速度是标准速度的1.04倍,即略快于正常播放速度。
+
+
+srs-bench
+
+1. 使用100并发推流
+./objs/sb_rtmp_publish -i /tmp/source.flv -c 100 -r rtmp://10.0.2.187/live/livestream_{i}
+2. 使用1000并发推流
+./objs/sb_rtmp_publish -i /tmp/source.flv -c 1000 -r rtmp://10.0.2.187/live/livestream_{i}
+
+
+二． 拉流压测
+1. 压测hls拉流
+./objs/sb_hls_load -c 1000 -r http://10.0.2.187:8080/live/livestream.m3u8
+2. 压测rtmp拉流
+./sb_rtmp_load -c 1000 -r rtmp://10.0.2.187:1935/live/livestream

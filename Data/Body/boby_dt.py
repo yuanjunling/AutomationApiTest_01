@@ -20,21 +20,38 @@ get_ant_device_info_json = {"ant_type": 1}
 get_sub_info_json = {"ant_type": 1}
 get_warn_info_json = {"ant_type": 1}
 get_test_info_json = {"ant_type": 1}
-set_aim_sat_json = {
-    "ant_type": 1,
-    "longitude": 1901.500000,
-    "trackfreq": 1982,
-    "po_mode": 1,
-    "symbol_rate": 51000,
+set_aim_sat_json_01 = {
+    "lnb_voltage": 0,
+    "relo": 9750,
     "bandwidth": 20000,
     "_22k": 0,
+    "trackfreq": 1216,
     "disq": 0,
-    "lnb_voltage": 1,
-    "track_mode": 0,
-    "losttime": 15000,
     "multiaxis": 2,
-    "relo": 10600,
-    "agc_threshold": 125821,
+    "ant_type": 1,
+    "po_mode": 0,
+    "track_mode": 0,
+    "losttime": 30000,
+    "agc_threshold": 0,
+    "longitude": 87.5,
+    "symbol_rate": 21600,
+}
+
+set_aim_sat_json_02 = {
+    "lnb_voltage": 0,
+    "relo": 9750,
+    "bandwidth": 20000,
+    "_22k": 0,
+    "trackfreq": 1755,
+    "disq": 0,
+    "multiaxis": 2,
+    "ant_type": 1,
+    "po_mode": 1,
+    "track_mode": 0,
+    "losttime": 30000,
+    "agc_threshold": 0,
+    "longitude": 98.2,
+    "symbol_rate": 6600,
 }
 
 get_test_step_json = {"ant_type": 1}
@@ -77,9 +94,9 @@ setgisconfig_json = {
 
 setacuconfig_json = {
     "chang_type": 63,
-    "ant1_ip": "192.168.111.211",
+    "ant1_ip": "192.168.1.1",
     "ant1_port": 15101,
-    "ant2_ip": "192.168.111.211",
+    "ant2_ip": "192.168.1.1",
     "ant2_port": 15102,
     "verbose_en": 1,
     "log_dir1": "/mnt/sda1/log/ditel_ant_info/retransfer1.log",
