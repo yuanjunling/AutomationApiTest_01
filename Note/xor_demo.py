@@ -1,11 +1,12 @@
-def xor_checksum(data):
+from typing import Any
+def xor_checksum(data:Any):
     checksum = 0
     for b in data.encode("utf-8"):
         checksum ^= b  # 进行异或运算
     return checksum
 
 
-data = "GCCMD,GET ANT DIR"
+data = "GCCMD,SET POWER SAVE,1"
 
 checksum = xor_checksum(data)
 print("Data:", data)

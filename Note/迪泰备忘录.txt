@@ -8,8 +8,14 @@ ps |grep ditel ditel_ant_info -d
 
 ditel_app_server -i 192.168.0.3 -p 15101 -e eth1 -d
 
- ditel_app_server -i 192.168.0.3 -p 15102  -e eth2 &
+ditel_app_server -i 192.168.0.3 -p 15102  -e eth2 &
 
+/etc/init.d/ditel_ant_info stop
+
+/etc/init.d/ditel_ant_info disable
+
+
+opkg remove ditel_app*
 
 /etc/init.d/ditel_ant_info  disable
 

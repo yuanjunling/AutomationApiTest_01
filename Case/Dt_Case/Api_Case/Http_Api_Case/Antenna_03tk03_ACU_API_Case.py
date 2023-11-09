@@ -3,9 +3,8 @@ import json
 import string
 import unittest
 import sys, os
-
-# current_dir = os.getcwd()
-sys.path.append("e:\AutomationApiTest_01")
+current_dir = os.getcwd()
+sys.path.append(current_dir)
 from Driver.is_json import is_jsons
 from Driver.base_request import request
 from Driver.handle_init import handle_ini

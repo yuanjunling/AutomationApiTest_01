@@ -109,3 +109,13 @@ setacuconfig_json = {
 }
 
 set_modem_upload_json = {"upload_type": 3, "step": 1, "file_name": "/etc/Eug/111.bin"}
+
+
+#TCP_03tk03_data-------------------------------------------
+get_ant_state_info_message = '$GCCMD,GET ANT DIR*30\r\n'
+get_ins_info_message='$GCCMD,GET INS DATA*70\r\n'
+get_modem_info_message="$GCCMD,GET MODEM INFO*74\r\n"
+get_aim_sat_info_message="$GCCMD,GET SAT DATA*62\r\n"
+get_ant_device_info_message="$GCCMD,GET SYS INFO*63\r\n"
+get_sub_info_message="$GCCMD,GET SUB DATA*60\r\n"
+get_warn_info_message="$GCCMD,GET ANT ALM*2f\r\n"
