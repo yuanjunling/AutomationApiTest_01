@@ -6,7 +6,7 @@ def xor_checksum(data:Any):
     return checksum
 
 
-data = "GCCMD,SET POWER SAVE,1"
+data = "GCCMD,AUTO SEARCH SET,105.50,1982.000,1,51000,0,0,0,1,0,0,3,10600,100"
 
 checksum = xor_checksum(data)
 print("Data:", data)

@@ -17,7 +17,6 @@ def time_execution(func):
         run_time = end_time - start_time
         print(f"测试耗时 {run_time:.2f} 秒")
         return result
-
     return wrapper
 
 

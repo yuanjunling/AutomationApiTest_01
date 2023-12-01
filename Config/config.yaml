@@ -1,0 +1,20 @@
+databases:
+- host: localhost
+  name: main_db
+  port: 5432
+- host: backup_server
+  name: backup_db
+  port: 5432
+users:
+- age: 25
+  email: alice@example.com
+  id: 1
+  name: Alice
+- age: 30
+  email: bob@example.com
+  id: 2
+  name: Bob
+- age: 301
+  email: bob@example1.com
+  id: 3
+  name: Bobc

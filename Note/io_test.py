@@ -56,6 +56,6 @@ def delete_file(file_name):
 number = 1
 while number <= 2:
     main()
-    delete_file(file_name)
+    # delete_file(file_name)
     number = number + 1
 print("硬盘测试完成")

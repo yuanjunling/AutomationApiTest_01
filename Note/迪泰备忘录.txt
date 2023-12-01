@@ -21,12 +21,33 @@ opkg remove ditel_app*
 
 /etc/init.d/ditel_ant_info  stop
 
+/etc/init.d/ditel_ant_info start
+
+ssh-keygen -R 192.168.1.1
+
+配置摄像头：vi /userdata/app_dt/nvrd.conf
+配置sip话机：vi /userdata/app_dt/dt_sip.conf
+查看终端日志
+/etc/init.d/S98app_dt_launcher
+killall weston
+
+前置摄像头挂载方法：i2cdetect -y 4 如果0x3c位置显示UU即挂载正常
+
+喇叭
+录音： arecord -D plughw:1,0 -f cd test.wav
+播放： aplay -D plughw:1,0 -f cd test.wav
+
+话柄
+录音： arecord -D plughw:2,0 -f cd test.wav
+播放： aplay -D plughw:2,0 -f cd test.wav
 
 ditel_app_server -i 192.168.111.222 -p 15101 -d
 
 ditel_app_server -i 192.168.111.222 -p 15102 &
 
 vi /etc/config/ditel_ant_info.config
+
+
 
 for /l %a in (1,1,1000) do python -u "e:\AutomationApiTest_01\Case\Dt_Case\Api_Case\Http_Api_Case\Antenna_03tk03_ACU_API_Case.py"
 
