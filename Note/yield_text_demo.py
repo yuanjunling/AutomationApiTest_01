@@ -6,3 +6,4 @@
 
 for line in file_reader("large_file.txt"):
     print(line, end="")
+

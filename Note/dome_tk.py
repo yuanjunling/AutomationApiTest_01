@@ -4,22 +4,8 @@
 # @File : dome_tk.py
 # @Software: PyCharm
 # @Title：标题
-
-import tkinter as tk
-
-
-def B1():
-    s = e1.get()
-    l1.configure(text=s)
-
-root = tk.Tk()
-root.title("test")
-root.geometry("500x300+200+300")
-e1 = tk.Entry(root)
-e1.pack()
-l1 = tk.Label(root,text="")
-l1.pack()
-b1 = tk.Button(root,text="获取文本框文字",command=B1)
-b1.pack()
-
-root.mainloop()
+data='3,0,53.10,20.32,6,156.29,52.62,20.41,3,79.05'
+response_fields = data.split(',')
+for i in range(len(response_fields)):
+    i+=1
+    print(i)

@@ -8,10 +8,11 @@ def laliu_ffmpeg(i):
 
 
 threads = []
-for i in range(100):
+for i in range(2):
     t = threading.Thread(target=laliu_ffmpeg, args=(i,))
     threads.append(t)
     t.start()
 
+
 for thread in threads:
-    thread.join()
+        thread.join()

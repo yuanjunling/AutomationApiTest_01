@@ -33,7 +33,7 @@ with open(wwwa, "wb") as f:
         stream=f,
         verbosity=2,
         title="迪泰-天线api",
-        description="天线03接口自动化输出报告",
+        description="03TK03接口自动化输出报告",
         language="zh-CN",
         tester="执行人：袁军令",
     )

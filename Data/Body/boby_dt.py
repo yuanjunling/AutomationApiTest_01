@@ -9,17 +9,16 @@ setAdjustSet_payload = "para1=15&para2=90&para3=12&para4=120&para5=2&para6=1"
 manualItems_payload = "para1=-1&para2=2&para3=2"
 getLog_payload = "pgn=0&pgs=30"
 
-
 # 1代表1号天线，2代表2号天线
 # ----------------------------------
-get_ant_state_info_json = {"ant_type": 1}
-get_ins_info_json = {"ant_type": 1}
-get_modem_info_json = {"ant_type": 1}
-get_aim_sat_info_json = {"ant_type": 1}
-get_ant_device_info_json = {"ant_type": 1}
-get_sub_info_json = {"ant_type": 1}
-get_warn_info_json = {"ant_type": 1}
-get_test_info_json = {"ant_type": 1}
+get_ant_state_info_json = {"ant_type": 2}
+get_ins_info_json = {"ant_type": 2}
+get_modem_info_json = {"ant_type": 2}
+get_aim_sat_info_json = {"ant_type": 2}
+get_ant_device_info_json = {"ant_type": 2}
+get_sub_info_json = {"ant_type": 2}
+get_warn_info_json = {"ant_type": 2}
+get_test_info_json = {"ant_type": 2}
 set_aim_sat_json_01 = {
     "lnb_voltage": 0,
     "relo": 9750,
@@ -28,7 +27,7 @@ set_aim_sat_json_01 = {
     "trackfreq": 1216,
     "disq": 0,
     "multiaxis": 2,
-    "ant_type": 1,
+    "ant_type": 2,
     "po_mode": 0,
     "track_mode": 0,
     "losttime": 30000,
@@ -45,7 +44,7 @@ set_aim_sat_json_02 = {
     "trackfreq": 1755,
     "disq": 0,
     "multiaxis": 2,
-    "ant_type": 1,
+    "ant_type": 2,
     "po_mode": 1,
     "track_mode": 0,
     "losttime": 30000,
@@ -54,32 +53,32 @@ set_aim_sat_json_02 = {
     "symbol_rate": 6600,
 }
 
-get_test_step_json = {"ant_type": 1}
-set_power_save_json = {"ant_type": 1, "function": 1}
-set_ant_reset_json = {"ant_type": 1, "function": 1}
-set_ant_manual_mode_json = {"ant_type": 1, "function": 0}
-set_ant_test_mode_json = {"ant_type": 1, "function": 1}
-set_ant_test_cmd_json = {"ant_type": 1, "function": 1}
+get_test_step_json = {"ant_type": 2}
+set_power_save_json = {"ant_type": 2, "function": 1}
+set_ant_reset_json = {"ant_type": 2, "function": 1}
+set_ant_manual_mode_json = {"ant_type": 2, "function": 0}
+set_ant_test_mode_json = {"ant_type": 2, "function": 1}
+set_ant_test_cmd_json = {"ant_type": 2, "function": 1}
 set_sub_json = {
-    "ant_type": 1,
+    "ant_type": 2,
     "sub_state": 1,
     "agc_gain": 1,
     "phase_offset": 2,
     "phase_num": 1,
 }
 
-set_manual_cmd_json = {"ant_type": 1, "spiale": 0, "ang_rate": 1, "move_ang": 2}
+set_manual_cmd_json = {"ant_type": 2, "spiale": 0, "ang_rate": 1, "move_ang": 2}
 set_ant_cal_json = {
-    "ant_type": 1,
+    "ant_type": 2,
     "pol_zero_cal": 1,
     "pit_up_lim_ang_cal": 2,
     "rol_zero_cal": 2.22,
     "azim_cal": 2.01,
     "cal_type": 1,
 }
-get_all_info_json = {"ant_type": 1}
+get_all_info_json = {"ant_type": 2}
 set_acu_upload_json = {"file_name": "/root/mac_upload.tar"}
-set_mcu_upload_json = {"upload_type": 1, "step": 0, "file_name": "/root/233.bin"}
+set_mcu_upload_json = {"upload_type": 2, "step": 0, "file_name": "/root/233.bin"}
 get_file_to_ant_step_json = {"upload_type": 1}
 get_modem_upload_step_json = {"upload_type": 3}
 setgisconfig_json = {
@@ -109,3 +108,30 @@ setacuconfig_json = {
 }
 
 set_modem_upload_json = {"upload_type": 3, "step": 1, "file_name": "/etc/Eug/111.bin"}
+
+# 对应返回状态参数
+
+back_state_error_message = {
+    0: "设置成功",
+    1: "设置超时",
+    2: "设置失败",
+    3: "与设备断开",
+    4: "其它错误",
+
+}
+code_msg_error_message = {
+
+}
+
+# TCP_03tk03_data-------------------------------------------
+get_ant_state_info_message = '$GCCMD,GET ANT DIR*30\r\n'
+get_ins_info_message = '$GCCMD,GET INS DATA*70\r\n'
+get_modem_info_message = "$GCCMD,GET MODEM INFO*74\r\n"
+get_aim_sat_info_message = "$GCCMD,GET SAT DATA*62\r\n"
+get_ant_device_info_message = "$GCCMD,GET SYS INFO*63\r\n"
+get_sub_info_message = "$GCCMD,GET SUB DATA*60\r\n"
+get_warn_info_message = "$GCCMD,GET ANT ALM*2f\r\n"
+get_test_info_message = "$GCCMD,GET TEST DATA*32\r\n"
+get_test_step_message = "$GCCMD,GET TEST STEP*30\r\n"
+get_all_info_message = "$GCCMD,GET ALL INFO*7b\r\n"
+set_power_save_message = "$GCCMD,SET POWER SAVE,1*63\r\n"

@@ -7,6 +7,9 @@
     <orderEntry type="jdk" jdkName="Python 3.10 (AutomationApiTest_01) (6)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
+  <component name="SonarLintModuleSettings">
+    <option name="uniqueId" value="acd8ea4b-fa2d-44b9-8f7c-0b1ec41149a5" />
+  </component>
   <component name="TestRunnerService">
     <option name="PROJECT_TEST_RUNNER" value="Twisted Trial" />
   </component>

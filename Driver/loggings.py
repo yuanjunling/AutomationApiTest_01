@@ -1,4 +1,5 @@
 ﻿import logging
+# from rich.logging import RichHandler
 from Driver.handle_init import handle_ini
 
 rootpath = handle_ini.get_value("rootpath")
@@ -9,6 +10,7 @@ logging.basicConfig(
     filename=file_path + "/logs.log",
     filemode="a",
     format="%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s",
+    # handlers=[RichHandler(show_path=False)]
 )
 
 # 创建一个handler,用于输出到控制台

@@ -1,39 +1,0 @@
-
-T	Web:S5254"@Add "lang" and/or "xml:lang" attributes to this "<html>" element(€÷ğ=
-IWeb:AvoidCommentedOutCodeCheck"Remove this commented out code.(öÜÑ×
-NWeb:AvoidCommentedOutCodeCheckh"Remove this commented out code.(İ»¥…ûÿÿÿÿ
-NWeb:TableWithoutCaptionCheckÚ" Add a description to this table.(Ù±úÒşÿÿÿÿ
-@	Web:S5256Ú"%Add "<th>" headers to this "<table>".(Ù±úÒşÿÿÿÿ
-D	Web:S1827Ü")Remove this deprecated "align" attribute.(Óù€ÿÿÿÿÿ
-D	Web:S1827İ")Remove this deprecated "align" attribute.(³¯Öñüÿÿÿÿ
-D	Web:S1827Ş")Remove this deprecated "align" attribute.(³¯Öñüÿÿÿÿ
-D	Web:S1827ß")Remove this deprecated "align" attribute.(³¯Öñüÿÿÿÿ
-D	Web:S1827à")Remove this deprecated "align" attribute.(³¯Öñüÿÿÿÿ
-D	Web:S1827á")Remove this deprecated "align" attribute.(³¯Öñüÿÿÿÿ
-?	Web:S1827÷")Remove this deprecated "align" attribute.(õ Íñ
-?	Web:S1827‹")Remove this deprecated "align" attribute.(õ Íñ
-?	Web:S1827")Remove this deprecated "align" attribute.(õ Íñ
-?	Web:S1827±")Remove this deprecated "align" attribute.(õ Íñ
-?	Web:S1827Ä")Remove this deprecated "align" attribute.(õ Íñ
-?	Web:S1827×")Remove this deprecated "align" attribute.(õ Íñ
-?	Web:S1827ê")Remove this deprecated "align" attribute.(õ Íñ
-?	Web:S1827ı")Remove this deprecated "align" attribute.(õ Íñ
-?	Web:S1827")Remove this deprecated "align" attribute.(õ Íñ
-?	Web:S1827£")Remove this deprecated "align" attribute.(õ Íñ
-?	Web:S1827¶")Remove this deprecated "align" attribute.(õ Íñ
-?	Web:S1827É")Remove this deprecated "align" attribute.(õ Íñ
-?	Web:S1827Ü")Remove this deprecated "align" attribute.(õ Íñ
-?	Web:S1827ï")Remove this deprecated "align" attribute.(õ Íñ
-?	Web:S1827‚")Remove this deprecated "align" attribute.(õ Íñ
-?	Web:S1827•")Remove this deprecated "align" attribute.(õ Íñ
-?	Web:S1827¨")Remove this deprecated "align" attribute.(õ Íñ
-‰javascript:S2703i"aAdd the "let", "const" or "var" keyword to this declaration of "output_list" to make it explicit.(¯ãÇöùÿÿÿÿ8‰÷éÅğ0
-javascript:S2703m"YAdd the "let", "const" or "var" keyword to this declaration of "trs" to make it explicit.(çŒ¤íÿÿÿÿÿ8‰÷éÅğ0
-njavascript:S4138n"LExpected a `for-of` loop instead of a `for` loop with this simple iteration.(Õäî8‹÷éÅğ0
-{javascript:S2703o"XAdd the "let", "const" or "var" keyword to this declaration of "tr" to make it explicit.(ï“ëĞ8‹÷éÅğ0
-{javascript:S2703p"XAdd the "let", "const" or "var" keyword to this declaration of "id" to make it explicit.(—áÙè8‹÷éÅğ0
-€javascript:S2392ˆ"WConsider moving declaration of 'i' as it is referenced outside current binding context.(ÔÒ•ûıÿÿÿÿ8Œ÷éÅğ0
-~javascript:S2703‰"ZAdd the "let", "const" or "var" keyword to this declaration of "tid0" to make it explicit.(¥‘’½8Œ÷éÅğ0
-}javascript:S2703Š"YAdd the "let", "const" or "var" keyword to this declaration of "tid" to make it explicit.(Óàıå8Œ÷éÅğ0
-@javascript:S2814•"'i' is already defined.(ÔÒ•ûıÿÿÿÿ8Œ÷éÅğ0
-^javascript:S1854§":Remove this useless assignment to variable "displayState".(Ë‚ÜŸ8Œ÷éÅğ0

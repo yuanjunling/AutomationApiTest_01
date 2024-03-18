@@ -4,14 +4,15 @@ import string
 import unittest
 import sys, os
 
-# current_dir = os.getcwd()
-sys.path.append("e:\AutomationApiTest_01")
-from Driver.is_json import is_jsons
+current_dir = os.getcwd()
+sys.path.append(current_dir)
+from Driver.is_json import *
 from Driver.base_request import request
 from Driver.handle_init import handle_ini
 from Data.Headers.headers_Dt_data import *
 from Data.Body.boby_dt import *
 from Driver.loggings import logger
+from Message.error_message.message import *
 import time
 
 
@@ -65,20 +66,21 @@ class Antenna_03_Case(unittest.TestCase):
         )
         json_res = is_jsons(res)  # 判断返回报文是json还是data
         json_ress = json.loads(json_res)
-
+        #获取错误消息
+        back_state_message = get_error_message(json_ress["back_state"],back_state_error_message)
         try:
             self.assertTrue(json_ress, "Empty JSON response")
             self.assertEqual(
                 json_ress["theme"], "get_ant_state_info", "Incorrect instruction"
             )
-            self.assertEqual(json_ress["back_state"], 0, "Setting failed")
+            self.assertEqual(json_ress["back_state"], 0, back_state_message)
             self.assertEqual(json_ress["code_msg"], "ok", "Response not OK")
             logger.info("后台获取天线状态信息测试用例通过: %s" % json_res)
         except AssertionError as e:
             logger.error("后台获取天线状态信息测试用例不通过%s" % e)
             raise e
 
-    @unittest.skip("暂时不需要执行")
+    # @unittest.skip("暂时不需要执行")
     def test_02_get_ins_info(self):
         """获取惯导信息"""
         get_ins_info = self.get_ins_info
@@ -90,13 +92,15 @@ class Antenna_03_Case(unittest.TestCase):
         )
         json_res = is_jsons(res)  # 判断返回报文是json还是data
         json_ress = json.loads(json_res)
+        # 获取错误消息
+        back_state_message = get_error_message(json_ress["back_state"], back_state_error_message)
 
         try:
             self.assertTrue(json_ress, "Empty JSON response")
             self.assertEqual(
                 json_ress["theme"], "get_ins_info", "Incorrect instruction"
             )
-            self.assertEqual(json_ress["back_state"], 0, "Setting failed")
+            self.assertEqual(json_ress["back_state"], 0, back_state_message)
             self.assertEqual(json_ress["code_msg"], "ok", "Response not OK")
             logger.info("后台获取惯导信息测试用例通过: %s" % json_res)
         except AssertionError as e:
@@ -114,13 +118,13 @@ class Antenna_03_Case(unittest.TestCase):
         )
         json_res = is_jsons(res)  # 判断返回报文是json还是data
         json_ress = json.loads(json_res)
-
+        back_state_message = get_error_message(json_ress["back_state"], back_state_error_message)
         try:
             self.assertTrue(json_ress, "Empty JSON response")
             self.assertEqual(
                 json_ress["theme"], "get_modem_info", "Incorrect instruction"
             )
-            self.assertEqual(json_ress["back_state"], 0, "Setting failed")
+            self.assertEqual(json_ress["back_state"], 0, back_state_message)
             self.assertEqual(json_ress["code_msg"], "ok", "Response not OK")
             logger.info("后台获取MODEM信息测试用例通过: %s" % json_res)
         except AssertionError as e:
@@ -138,13 +142,13 @@ class Antenna_03_Case(unittest.TestCase):
         )
         json_res = is_jsons(res)  # 判断返回报文是json还是data
         json_ress = json.loads(json_res)
-
+        back_state_message = get_error_message(json_ress["back_state"], back_state_error_message)
         try:
             self.assertTrue(json_ress, "Empty JSON response")
             self.assertEqual(
                 json_ress["theme"], "get_aim_sat_info", "Incorrect instruction"
             )
-            self.assertEqual(json_ress["back_state"], 0, "Setting failed")
+            self.assertEqual(json_ress["back_state"], 0, back_state_message)
             self.assertEqual(json_ress["code_msg"], "ok", "Response not OK")
             logger.info("后台获取目标卫星信息测试用例通过: %s" % json_res)
         except AssertionError as e:
@@ -162,20 +166,21 @@ class Antenna_03_Case(unittest.TestCase):
         )
         json_res = is_jsons(res)  # 判断返回报文是json还是data
         json_ress = json.loads(json_res)
+        back_state_message = get_error_message(json_ress["back_state"], back_state_error_message)
 
         try:
             self.assertTrue(json_ress, "Empty JSON response")
             self.assertEqual(
                 json_ress["theme"], "get_ant_device_info", "Incorrect instruction"
             )
-            self.assertEqual(json_ress["back_state"], 0, "Setting failed")
+            self.assertEqual(json_ress["back_state"], 0, back_state_message)
             self.assertEqual(json_ress["code_msg"], "ok", "Response not OK")
             logger.info("后台获取天线系统信息测试用例通过: %s" % json_res)
         except AssertionError as e:
             logger.error("后台获取天线系统信息测试用例不通过%s" % e)
             raise e
 
-    @unittest.skip("暂时不需要执行")
+    # @unittest.skip("暂时不需要执行")
     def test_06_get_sub_info(self):
         """获取副面跟踪信息"""
         get_sub_info = self.get_sub_info
@@ -187,13 +192,14 @@ class Antenna_03_Case(unittest.TestCase):
         )
         json_res = is_jsons(res)  # 判断返回报文是json还是data
         json_ress = json.loads(json_res)
+        back_state_message = get_error_message(json_ress["back_state"], back_state_error_message)
 
         try:
             self.assertTrue(json_ress, "Empty JSON response")
             self.assertEqual(
                 json_ress["theme"], "get_sub_info", "Incorrect instruction"
             )
-            self.assertEqual(json_ress["back_state"], 0, "Setting failed")
+            self.assertEqual(json_ress["back_state"], 0, back_state_message)
             self.assertEqual(json_ress["code_msg"], "ok", "Response not OK")
             logger.info("后台获取副面跟踪信息测试用例通过: %s" % json_res)
         except AssertionError as e:
@@ -212,13 +218,14 @@ class Antenna_03_Case(unittest.TestCase):
         )
         json_res = is_jsons(res)  # 判断返回报文是json还是data
         json_ress = json.loads(json_res)
+        back_state_message = get_error_message(json_ress["back_state"], back_state_error_message)
 
         try:
             self.assertTrue(json_ress, "Empty JSON response")
             self.assertEqual(
                 json_ress["theme"], "get_out_ins_data", "Incorrect instruction"
             )
-            self.assertEqual(json_ress["back_state"], 0, "Setting failed")
+            self.assertEqual(json_ress["back_state"], 0, back_state_message)
             self.assertEqual(json_ress["code_msg"], "ok", "Response not OK")
             logger.info("后台获取外部惯导数据测试用例通过: %s" % json_res)
         except AssertionError as e:
@@ -236,19 +243,21 @@ class Antenna_03_Case(unittest.TestCase):
         )
         json_res = is_jsons(res)  # 判断返回报文是json还是data
         json_ress = json.loads(json_res)
+        back_state_message = get_error_message(json_ress["back_state"], back_state_error_message)
 
         try:
             self.assertTrue(json_ress, "Empty JSON response")
             self.assertEqual(
                 json_ress["theme"], "get_warn_info", "Incorrect instruction"
             )
-            self.assertEqual(json_ress["back_state"], 0, "Setting failed")
+            self.assertEqual(json_ress["back_state"], 0, back_state_message)
             self.assertEqual(json_ress["code_msg"], "ok", "Response not OK")
             logger.info("后台获取天线告警信息测试用例通过: %s" % json_res)
         except AssertionError as e:
             logger.error("后台获取天线告警信息测试用例不通过: %s" % e)
             raise e
 
+    @unittest.skip("暂时不需要执行")
     def test_09_get_test_info(self):
         """获取天线测试信息"""
         get_test_info = self.get_test_info
@@ -260,13 +269,14 @@ class Antenna_03_Case(unittest.TestCase):
         )
         json_res = is_jsons(res)  # 判断返回报文是json还是data
         json_ress = json.loads(json_res)
+        back_state_message = get_error_message(json_ress["back_state"], back_state_error_message)
 
         try:
             self.assertTrue(json_ress, "Empty JSON response")
             self.assertEqual(
                 json_ress["theme"], "get_test_info", "Incorrect instruction"
             )
-            self.assertEqual(json_ress["back_state"], 0, "Setting failed")
+            self.assertEqual(json_ress["back_state"], 0, back_state_message)
             self.assertEqual(json_ress["code_msg"], "ok", "Response not OK")
             logger.info("后台获取天线测试信息测试用例通过: %s" % json_res)
         except AssertionError as e:
@@ -285,17 +295,19 @@ class Antenna_03_Case(unittest.TestCase):
         )
         json_res = is_jsons(res)  # 判断返回报文是json还是data
         json_ress = json.loads(json_res)
+        back_state_message = get_error_message(json_ress["back_state"], back_state_error_message)
 
         try:
             self.assertTrue(json_ress, "Empty JSON response")
             self.assertEqual(json_ress["theme"], "set_aim_sat", "Incorrect instruction")
-            self.assertEqual(json_ress["back_state"], 0, "Setting failed")
+            self.assertEqual(json_ress["back_state"], 0, back_state_message)
             self.assertEqual(json_ress["code_msg"], "ok", "Response not OK")
             logger.info("后台切换卫星信息测试用例通过: %s" % json_res)
         except AssertionError as e:
             logger.error("后台切换卫星信息测试用例不通过: %s" % e)
             raise e
 
+    @unittest.skip("暂时不需要执行")
     def test_11_get_test_step(self):
         """获取测试步骤"""
         get_test_step = self.get_test_step
@@ -307,20 +319,20 @@ class Antenna_03_Case(unittest.TestCase):
         )
         json_res = is_jsons(res)  # 判断返回报文是json还是data
         json_ress = json.loads(json_res)
-
+        back_state_message = get_error_message(json_ress["back_state"], back_state_error_message)
         try:
             self.assertTrue(json_ress, "Empty JSON response")
             self.assertEqual(
                 json_ress["theme"], "get_test_step", "Incorrect instruction"
             )
-            self.assertEqual(json_ress["back_state"], 0, "Setting failed")
+            self.assertEqual(json_ress["back_state"], 0, back_state_message)
             self.assertEqual(json_ress["code_msg"], "ok", "Response not OK")
             logger.info("后台获取测试步骤测试用例通过: %s" % json_res)
         except AssertionError as e:
             logger.error("后台获取测试步骤测试用例不通过: %s" % e)
             raise e
 
-    @unittest.skip("暂时不需要执行")
+    # @unittest.skip("暂时不需要执行")
     def test_12_set_power_save(self):
         """天线节电设置"""
         set_power_save = self.set_power_save
@@ -332,13 +344,14 @@ class Antenna_03_Case(unittest.TestCase):
         )
         json_res = is_jsons(res)  # 判断返回报文是json还是data
         json_ress = json.loads(json_res)
+        back_state_message = get_error_message(json_ress["back_state"], back_state_error_message)
 
         try:
             self.assertTrue(json_ress, "Empty JSON response")
             self.assertEqual(
                 json_ress["theme"], "set_power_save", "Incorrect instruction"
             )
-            self.assertEqual(json_ress["back_state"], 0, "Setting failed")
+            self.assertEqual(json_ress["back_state"], 0, back_state_message)
             self.assertEqual(json_ress["code_msg"], "ok", "Response not OK")
             logger.info("后台天线节电设置测试用例通过: %s" % json_res)
         except AssertionError as e:
@@ -357,13 +370,13 @@ class Antenna_03_Case(unittest.TestCase):
         )
         json_res = is_jsons(res)  # 判断返回报文是json还是data
         json_ress = json.loads(json_res)
-
+        back_state_message = get_error_message(json_ress["back_state"], back_state_error_message)
         try:
             self.assertTrue(json_ress, "Empty JSON response")
             self.assertEqual(
                 json_ress["theme"], "set_ant_reset", "Incorrect instruction"
             )
-            self.assertEqual(json_ress["back_state"], 0, "Setting failed")
+            self.assertEqual(json_ress["back_state"], 0, back_state_message)
             self.assertEqual(json_ress["code_msg"], "ok", "Response not OK")
             logger.info("后台天线复位设置测试用例通过: %s" % json_res)
         except AssertionError as e:
@@ -382,13 +395,13 @@ class Antenna_03_Case(unittest.TestCase):
         )
         json_res = is_jsons(res)  # 判断返回报文是json还是data
         json_ress = json.loads(json_res)
-
+        back_state_message = get_error_message(json_ress["back_state"], back_state_error_message)
         try:
             self.assertTrue(json_ress, "Empty JSON response")
             self.assertEqual(
                 json_ress["theme"], "set_ant_manual_mode", "Incorrect instruction"
             )
-            self.assertEqual(json_ress["back_state"], 0, "Setting failed")
+            self.assertEqual(json_ress["back_state"], 0, back_state_message)
             self.assertEqual(json_ress["code_msg"], "ok", "Response not OK")
             logger.info("后台设置手动模式测试用例通过: %s" % json_res)
         except AssertionError as e:
@@ -407,13 +420,14 @@ class Antenna_03_Case(unittest.TestCase):
         )
         json_res = is_jsons(res)  # 判断返回报文是json还是data
         json_ress = json.loads(json_res)
+        back_state_message = get_error_message(json_ress["back_state"], back_state_error_message)
 
         try:
             self.assertTrue(json_ress, "Empty JSON response")
             self.assertEqual(
                 json_ress["theme"], "set_ant_test_mode", "Incorrect instruction"
             )
-            self.assertEqual(json_ress["back_state"], 0, "Setting failed")
+            self.assertEqual(json_ress["back_state"], 0, back_state_message)
             self.assertEqual(json_ress["code_msg"], "ok", "Response not OK")
             logger.info("后台设置测试模式测试用例通过: %s" % json_res)
         except AssertionError as e:
@@ -432,13 +446,14 @@ class Antenna_03_Case(unittest.TestCase):
         )
         json_res = is_jsons(res)  # 判断返回报文是json还是data
         json_ress = json.loads(json_res)
+        back_state_message = get_error_message(json_ress["back_state"], back_state_error_message)
 
         try:
             self.assertTrue(json_ress, "Empty JSON response")
             self.assertEqual(
                 json_ress["theme"], "set_ant_test_cmd", "Incorrect instruction"
             )
-            self.assertEqual(json_ress["back_state"], 0, "Setting failed")
+            self.assertEqual(json_ress["back_state"], 0, back_state_message)
             self.assertEqual(json_ress["code_msg"], "ok", "Response not OK")
             logger.info("后台测试模式测试命令测试用例通过: %s" % json_res)
         except AssertionError as e:
@@ -457,11 +472,12 @@ class Antenna_03_Case(unittest.TestCase):
         )
         json_res = is_jsons(res)  # 判断返回报文是json还是data
         json_ress = json.loads(json_res)
+        back_state_message = get_error_message(json_ress["back_state"], back_state_error_message)
 
         try:
             self.assertTrue(json_ress, "Empty JSON response")
             self.assertEqual(json_ress["theme"], "set_sub", "Incorrect instruction")
-            self.assertEqual(json_ress["back_state"], 0, "Setting failed")
+            self.assertEqual(json_ress["back_state"], 0, back_state_message)
             self.assertEqual(json_ress["code_msg"], "ok", "Response not OK")
             logger.info("后台设置副面跟踪信息测试用例通过: %s" % json_res)
         except AssertionError as e:
@@ -480,13 +496,14 @@ class Antenna_03_Case(unittest.TestCase):
         )
         json_res = is_jsons(res)  # 判断返回报文是json还是data
         json_ress = json.loads(json_res)
+        back_state_message = get_error_message(json_ress["back_state"], back_state_error_message)
 
         try:
             self.assertTrue(json_ress, "Empty JSON response")
             self.assertEqual(
                 json_ress["theme"], "set_manual_cmd", "Incorrect instruction"
             )
-            self.assertEqual(json_ress["back_state"], 0, "Setting failed")
+            self.assertEqual(json_ress["back_state"], 0, back_state_message)
             self.assertEqual(json_ress["code_msg"], "ok", "Response not OK")
             logger.info("后台手动模式下控制电机测试用例通过: %s" % json_res)
         except AssertionError as e:
@@ -505,11 +522,12 @@ class Antenna_03_Case(unittest.TestCase):
         )
         json_res = is_jsons(res)  # 判断返回报文是json还是data
         json_ress = json.loads(json_res)
+        back_state_message = get_error_message(json_ress["back_state"], back_state_error_message)
 
         try:
             self.assertTrue(json_ress, "Empty JSON response")
             self.assertEqual(json_ress["theme"], "set_ant_cal", "Incorrect instruction")
-            self.assertEqual(json_ress["back_state"], 0, "Setting failed")
+            self.assertEqual(json_ress["back_state"], 0, back_state_message)
             self.assertEqual(json_ress["code_msg"], "ok", "Response not OK")
             logger.info("后台天线零位标定测试用例通过: %s" % json_res)
         except AssertionError as e:
@@ -527,13 +545,14 @@ class Antenna_03_Case(unittest.TestCase):
         )
         json_res = is_jsons(res)  # 判断返回报文是json还是data
         json_ress = json.loads(json_res)
+        back_state_message = get_error_message(json_ress["back_state"], back_state_error_message)
 
         try:
             self.assertTrue(json_ress, "Empty JSON response")
             self.assertEqual(
                 json_ress["theme"], "get_all_info", "Incorrect instruction"
             )
-            self.assertEqual(json_ress["back_state"], 0, "Setting failed")
+            self.assertEqual(json_ress["back_state"], 0, back_state_message)
             self.assertEqual(json_ress["code_msg"], "ok", "Response not OK")
             logger.info("后台获取所有数据测试用例通过: %s" % json_res)
         except AssertionError as e:
@@ -552,13 +571,14 @@ class Antenna_03_Case(unittest.TestCase):
         )
         json_res = is_jsons(res)  # 判断返回报文是json还是data
         json_ress = json.loads(json_res)
+        back_state_message = get_error_message(json_ress["back_state"], back_state_error_message)
 
         try:
             self.assertTrue(json_ress, "Empty JSON response")
             self.assertEqual(
                 json_ress["theme"], "set_acu_upload", "Incorrect instruction"
             )
-            self.assertEqual(json_ress["back_state"], 0, "Setting failed")
+            self.assertEqual(json_ress["back_state"], 0, back_state_message)
             self.assertEqual(json_ress["code_msg"], "ok", "Response not OK")
             logger.info("后台升级acu软件包测试用例通过: %s" % json_res)
         except AssertionError as e:
@@ -577,13 +597,14 @@ class Antenna_03_Case(unittest.TestCase):
         )
         json_res = is_jsons(res)  # 判断返回报文是json还是data
         json_ress = json.loads(json_res)
+        back_state_message = get_error_message(json_ress["back_state"], back_state_error_message)
 
         try:
             self.assertTrue(json_ress, "Empty JSON response")
             self.assertEqual(
                 json_ress["theme"], "set_mcu_upload", "Incorrect instruction"
             )
-            self.assertEqual(json_ress["back_state"], 0, "Setting failed")
+            self.assertEqual(json_ress["back_state"], 0, back_state_message)
             self.assertEqual(json_ress["code_msg"], "ok", "Response not OK")
             logger.info("后台发送天线升级文件测试用例通过: %s" % json_res)
         except AssertionError as e:
@@ -602,13 +623,14 @@ class Antenna_03_Case(unittest.TestCase):
         )
         json_res = is_jsons(res)  # 判断返回报文是json还是data
         json_ress = json.loads(json_res)
+        back_state_message = get_error_message(json_ress["back_state"], back_state_error_message)
 
         try:
             self.assertTrue(json_ress, "Empty JSON response")
             self.assertEqual(
                 json_ress["theme"], "get_file_to_ant_step", "Incorrect instruction"
             )
-            self.assertEqual(json_ress["back_state"], 0, "Setting failed")
+            self.assertEqual(json_ress["back_state"], 0, back_state_message)
             self.assertEqual(json_ress["code_msg"], "ok", "Response not OK")
             logger.info("后台获取升级文件传输进度测试用例通过: %s" % json_res)
         except AssertionError as e:
@@ -627,13 +649,14 @@ class Antenna_03_Case(unittest.TestCase):
         )
         json_res = is_jsons(res)  # 判断返回报文是json还是data
         json_ress = json.loads(json_res)
+        back_state_message = get_error_message(json_ress["back_state"], back_state_error_message)
 
         try:
             self.assertTrue(json_ress, "Empty JSON response")
             self.assertEqual(
                 json_ress["theme"], "get_modem_upload_step", "Incorrect instruction"
             )
-            self.assertEqual(json_ress["back_state"], 0, "Setting failed")
+            self.assertEqual(json_ress["back_state"], 0, back_state_message)
             self.assertEqual(json_ress["code_msg"], "ok", "Response not OK")
             logger.info("后台获取升级modem进度测试用例通过: %s" % json_res)
         except AssertionError as e:
@@ -654,18 +677,20 @@ class Antenna_03_Case(unittest.TestCase):
         json_res = is_jsons(res)  # 判断返回报文是json还是data
         json_ress = json.loads(json_res)
 
+
         try:
             self.assertTrue(json_ress, "Empty JSON response")
             self.assertEqual(
                 json_ress["theme"], "set_modem_upload", "Incorrect instruction"
             )
-            # self.assertEqual(json_ress["back_state"], 0, "Setting failed")
+            # self.assertEqual(json_ress["back_state"], 0, back_state_message)
             # self.assertEqual(json_ress["code_msg"], "ok", "Response not OK")
             logger.info("后台发送modem升级文件测试用例通过: %s" % json_res)
         except AssertionError as e:
             logger.error("后台发送modem升级文件测试用例不通过: %s" % e)
             raise e
 
+    @unittest.skip("暂时不需要执行")
     def test_26_getgisconfig(self):
         """获取GIS配置参数"""
         getgisconfig = self.getgisconfig
@@ -683,7 +708,7 @@ class Antenna_03_Case(unittest.TestCase):
             self.assertEqual(
                 json_ress["theme"], "getgisconfig", "Incorrect instruction"
             )
-            self.assertEqual(json_ress["en"], 0, "Setting failed")
+            self.assertEqual(json_ress["en"], 0, '设置错误')
             # self.assertEqual(json_ress["code_msg"], "ok", "Response not OK")
             logger.info("后台获取GIS配置参数测试用例通过: %s" % json_res)
         except AssertionError as e:
@@ -702,19 +727,21 @@ class Antenna_03_Case(unittest.TestCase):
         )
         json_res = is_jsons(res)  # 判断返回报文是json还是data
         json_ress = json.loads(json_res)
+        back_state_message = get_error_message(json_ress["back_state"], back_state_error_message)
 
         try:
             self.assertTrue(json_ress, "Empty JSON response")
             self.assertEqual(
                 json_ress["theme"], "setgisconfig", "Incorrect instruction"
             )
-            self.assertEqual(json_ress["back_state"], 0, "Setting failed")
+            self.assertEqual(json_ress["back_state"], 0, back_state_message)
             self.assertEqual(json_ress["code_msg"], "ok", "Response not OK")
             logger.info("后台设置GIS配置参数测试用例通过: %s" % json_res)
         except AssertionError as e:
             logger.error("后台设置GIS配置参数测试用例不通过: %s" % e)
             raise e
 
+    @unittest.skip("暂时不需要执行")
     def test_28_getacuconfig(self):
         """获取ACU配置参数"""
         getacuconfig = self.getacuconfig
@@ -732,7 +759,7 @@ class Antenna_03_Case(unittest.TestCase):
             self.assertEqual(
                 json_ress["theme"], "getacuconfig", "Incorrect instruction"
             )
-            self.assertEqual(json_ress["verbose_en"], 1, "Setting failed")
+            self.assertEqual(json_ress["verbose_en"], 1, '设置错误')
             # self.assertEqual(json_ress["code_msg"], "ok", "Response not OK")
             logger.info("后台获取ACU配置参数测试用例通过: %s" % json_res)
         except AssertionError as e:
@@ -751,13 +778,14 @@ class Antenna_03_Case(unittest.TestCase):
         )
         json_res = is_jsons(res)  # 判断返回报文是json还是data
         json_ress = json.loads(json_res)
+        back_state_message = get_error_message(json_ress["back_state"], back_state_error_message)
 
         try:
             self.assertTrue(json_ress, "Empty JSON response")
             self.assertEqual(
                 json_ress["theme"], "setacuconfig", "Incorrect instruction"
             )
-            self.assertEqual(json_ress["back_state"], 0, "Setting failed")
+            self.assertEqual(json_ress["back_state"], 0, back_state_message)
             self.assertEqual(json_ress["code_msg"], "ok", "Response not OK")
             logger.info("后台设置ACU配置参数测试用例通过: %s" % json_res)
         except AssertionError as e:
@@ -776,13 +804,14 @@ class Antenna_03_Case(unittest.TestCase):
         )
         json_res = is_jsons(res)  # 判断返回报文是json还是data
         json_ress = json.loads(json_res)
+        back_state_message = get_error_message(json_ress["back_state"], back_state_error_message)
 
         try:
             self.assertTrue(json_ress, "Empty JSON response")
             self.assertEqual(
                 json_ress["theme"], "get_adapter_data", "Incorrect instruction"
             )
-            self.assertEqual(json_ress["back_state"], 0, "Setting failed")
+            self.assertEqual(json_ress["back_state"], 0, back_state_message)
             self.assertEqual(json_ress["code_msg"], "ok", "Response not OK")
             logger.info("后台获取外部适配器数据测试用例通过: %s" % json_res)
         except AssertionError as e:

@@ -2,3 +2,5 @@ requests
 pymysql
 openpyxl
 selenium
+pyasn1==0.4.8
+pysnmp==4.4.12
