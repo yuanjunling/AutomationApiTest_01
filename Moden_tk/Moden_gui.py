@@ -564,6 +564,6 @@ Reliability_button=tk.Button(root, text="稳定性运行", command=Reliability_b
 Reliability_button.grid(row=13, column=7)
 
 if __name__ == '__main__':
-    # 运行主循环
+    # 运行主循环测试
     app = HoverLineChartApp(root,sqf_list)
     root.mainloop()
