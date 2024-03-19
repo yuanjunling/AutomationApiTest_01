@@ -1,79 +1,95 @@
 import tkinter as tk
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-import matplotlib.pyplot as plt
+from tkinter import scrolledtext
+import threading
+import queue
+import subprocess
+import platform
 
 
-class HoverLineChartApp:
-    def __init__(self, master, data):
+class PingsButtons:
+    def __init__(self, master):
         self.master = master
-        self.data = data
         self.popup_window = None
+        self.result_queue = queue.Queue()
 
-        # Button to open the line chart in a popup window
-        open_button = tk.Button(master, text="Open Line Chart", command=self.show_line_chart)
-        open_button.pack()
+        # Button to open the ping tool in a popup window
+        open_button = tk.Button(master, text="ping包", command=self.show_ping_tool)
+        open_button.grid(row=14, column=1)
 
-    def show_line_chart(self):
-        # Create a new toplevel window
+        # Check the platform and set the ping command accordingly
+        self.ping_command = "ping" if platform.system().lower() == "windows" else "ping -c"
+
+    def show_ping_tool(self):
         self.popup_window = tk.Toplevel(self.master)
-        self.popup_window.title("稳定性信噪比折线图")
+        self.popup_window.title("Ping Tool")
 
-        # Create a matplotlib figure
-        self.fig, self.ax = plt.subplots(figsize=(5, 3), dpi=100)
+        tk.Label(self.popup_window, text="Enter the host to ping:").grid(row=0, column=0)
+        self.target_host_entry = tk.Entry(self.popup_window)
+        self.target_host_entry.grid(row=0, column=1)
 
-        # Embed the matplotlib figure into the Toplevel window
-        self.canvas = FigureCanvasTkAgg(self.fig, master=self.popup_window)
-        self.widget = self.canvas.get_tk_widget()
-        self.widget.pack(fill=tk.BOTH, expand=True)
+        tk.Label(self.popup_window, text="Enter the number of pings (1-500):").grid(row=1, column=0)
+        self.ping_count_entry = tk.Entry(self.popup_window, width=10)
+        self.ping_count_entry.grid(row=1, column=1)
+        self.ping_count_entry.insert(0, "4")
 
-        # Data for the line chart
-        self.x_data = range(len(self.data))
-        self.y_data = self.data
+        ping_button = tk.Button(self.popup_window, text="Ping", command=self.on_ping_button_click)
+        ping_button.grid(row=2, column=0, columnspan=2)
 
-        # Plot the line chart
-        self.line, = self.ax.plot(self.x_data, self.y_data, marker='o', pickradius=5)
-        self.ax.set_title("Hover over a point to see details")
-        self.ax.set_xlabel("X-axis")
-        self.ax.set_ylabel("Y-axis")
+        self.result_text = scrolledtext.ScrolledText(self.popup_window, wrap=tk.WORD, width=60, height=15)
+        self.result_text.grid(row=3, column=0, columnspan=2)
 
-        # Annotation for hover details
-        self.annot = self.ax.annotate("", xy=(0, 0), xytext=(20, 20),
-                                      textcoords="offset points",
-                                      bbox=dict(boxstyle="round", fc="w"),
-                                      arrowprops=dict(arrowstyle="->"))
-        self.annot.set_visible(False)
+        # Check the result queue periodically and update the result text if there's any new message
+        self.check_result_queue()
 
-        # Connect the event handler for motion events
-        self.canvas.mpl_connect("motion_notify_event", self.hover)
+    def on_ping_button_click(self):
+        target_host = self.target_host_entry.get()
+        try:
+            ping_count = int(self.ping_count_entry.get())
+            if ping_count < 1 or ping_count > 500:
+                raise ValueError("Ping count must be between 1 and 500.")
+        except ValueError as e:
+            self.add_result(f"Warning: {e}")
+            return
 
-        # Refresh the canvas
-        self.canvas.draw()
+        if target_host:
+            self.result_text.delete('1.0', tk.END)
+            ping_thread = threading.Thread(target=self.ping_target, args=(target_host, ping_count))
+            ping_thread.start()
+        else:
+            self.add_result("Warning: Please enter a valid host address")
 
-    def hover(self, event):
-        if event.inaxes == self.ax:
-            cont, ind = self.line.contains(event)
-            if cont:
-                self.update_annot(ind)
-                self.annot.set_visible(True)
-                self.canvas.draw_idle()
+    def ping_target(self, target_host, ping_count):
+        try:
+            if platform.system().lower() == "windows":
+                completed_process = subprocess.run([self.ping_command, target_host, '-n', str(ping_count)],
+                                                   capture_output=True, text=True)
             else:
-                if self.annot.get_visible():
-                    self.annot.set_visible(False)
-                    self.canvas.draw_idle()
+                completed_process = subprocess.run([self.ping_command, str(ping_count), target_host],
+                                                   capture_output=True, text=True)
 
-    def update_annot(self, ind):
-        pos = self.line.get_path().vertices[ind["ind"][0]]
-        self.annot.xy = pos
-        text = f"x={pos[0]:.2f}, y={pos[1]:.2f}"
-        self.annot.set_text(text)
-        if self.annot.get_visible():
-            self.canvas.draw_idle()
+            output = completed_process.stdout
+            if completed_process.returncode != 0:
+                output += "\n" + completed_process.stderr
 
-        # Example usage
+            self.add_result(output)
+        except Exception as e:
+            self.add_result(f"Error: {e}")
+
+    def add_result(self, text):
+        self.result_queue.put(text)
+
+    def check_result_queue(self):
+        try:
+            while True:
+                result = self.result_queue.get_nowait()
+                self.result_text.insert(tk.END, result + "\n")
+                self.result_text.see(tk.END)
+        except queue.Empty:
+            self.popup_window.after(100, self.check_result_queue)
+
+        # Create the main window and run the app
 
 
-if __name__ == "__main__":
-    root = tk.Tk()
-    data = [1, 2, 3, 2, 4, 6, 5, 4, 3, 5, 7, 6]
-    app = HoverLineChartApp(root, data)
-    root.mainloop()
+root = tk.Tk()
+ping_buttons = PingsButtons(root)
+root.mainloop()
