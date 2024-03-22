@@ -826,6 +826,7 @@ Reliability_button.grid(row=13, column=7)
 
 if __name__ == "__main__":
     # 运行主循环
+    # 新增版本号
     app = HoverLineChartApp(root, sqf_list)
     # ping_buttons = PingsButtons(root)
     root.mainloop()
