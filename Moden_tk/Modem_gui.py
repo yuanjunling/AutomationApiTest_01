@@ -20,12 +20,20 @@ from pysnmp.entity.rfc3413.oneliner import cmdgen
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from pydantic import BaseModel
+from enum import Enum
 import subprocess
+from XTestRunner import HTMLTestRunner
 
 # 全局列表来存储sqf值
 sqf_list = []
 target_host = "192.168.222.1"
 community_string = "public"
+
+
+class Color(Enum):
+    modem_xiusi = "休斯"
+    modem_UHP = "UHP"
+    modem_503 = "503"
 
 
 class UHP_OID(BaseModel):
@@ -331,7 +339,7 @@ def static_test(Performance_testing_drop_range):
         values = round(value1, 2)
         if values > float(Performance_testing_drop_range):
             OutPut_entry.insert(
-                tk.END, f"静态测试跌落范围超常 性能测试跌落范围值{values:.2f}\n"
+                tk.END, f"静态测试跌落范围超常 静态测试跌落范围值{values:.2f}\n"
             )
             max_value = max(sqf_list)
             result = [round(max_value, 2) - round(x, 2) for x in sqf_list]
@@ -580,7 +588,7 @@ def print_file():
 def api_modem_type():
     # 匹配猫型号
     try:
-        if contents[1] == "休斯":
+        if contents[1] == Color.modem_xiusi.value:
             res_sn = http_requests_sn_ht2500_api()
             res_modem = http_requests_modem_ht2500_api()
             esn = res_sn["esn"]  # sn号
@@ -595,7 +603,7 @@ def api_modem_type():
                 "symbol_rate": symbol_rate,
                 "sqf": sqf,
             }
-        elif contents[1] == "503":
+        elif contents[1] == Color.modem_503.value:
             res_modem = http_requests_modem_503_api()
             res_sn = http_requests_sn_503_api()
             esn = res_sn["rcstMac"]
@@ -610,7 +618,7 @@ def api_modem_type():
                 "symbol_rate": symbol_rate,
                 "sqf": sqf,
             }
-        elif contents[1] == "UHP":
+        elif contents[1] == Color.modem_503.value:
             uhp_oid = UHP_OID()
             snmp_sn = snmp_get(uhp_oid.SN)
             snmp_modem = snmp_get(uhp_oid.SR)
@@ -625,7 +633,9 @@ def api_modem_type():
                 "sqf": sqf,
             }
         else:
-            messagebox.showerror("错误", "未知modem型号")
+            messagebox.showerror(
+                "错误", "modem类型匹配失败，请确认当前modem类型是否填写正确"
+            )
     except Exception as e:
         OutPut_entry.insert(tk.END, f"连接失败请检查连接配置或网络情况......\n")
 
