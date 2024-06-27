@@ -18,7 +18,7 @@ import time
 from pysnmp.hlapi import *
 from pysnmp.entity.rfc3413.oneliner import cmdgen
 import matplotlib.pyplot as plt
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 from pydantic import BaseModel
 from enum import Enum
 import subprocess
@@ -27,6 +27,7 @@ from XTestRunner import HTMLTestRunner
 # 全局列表来存储sqf值
 sqf_list = []
 target_host = "192.168.222.1"
+# target_host = "172.19.200.1"
 community_string = "public"
 
 
@@ -95,6 +96,13 @@ class HoverLineChartApp:
 
         # Refresh the canvas
         self.canvas.draw()
+        # self.canvas = FigureCanvasTkAgg(self.fig, master=self.popup_window)
+        # self.widget = self.canvas.get_tk_widget()
+        # # 创建工具栏并添加到窗口中
+        toolbar = NavigationToolbar2Tk(self.canvas, self.popup_window)
+        toolbar.update()
+        toolbar.pack(side=tk.BOTTOM, fill=tk.X)
+        self.widget.pack(fill=tk.BOTH, expand=True)
 
     def hover(self, event):
         if event.inaxes == self.ax:
@@ -132,7 +140,7 @@ def run_Button():
         OutPut_entry.insert(tk.END, "静态测试中，请稍等......\n")
         start_progress(int(contents[3]) + int(contents[5]))  # 假进度条
     except Exception as e:
-        OutPut_entry.insert(tk.END, f"请查看配置文件或连接方式是否正确\n")
+        OutPut_entry.insert(tk.END, f"请查看配置文件或连接方式是否正确{e}\n")
 
 
 def Reliabilitys_button():
@@ -147,7 +155,7 @@ def Reliabilitys_button():
         start_progress(int(contents[10]))  # 假进度条
     except Exception as e:
         OutPut_entry.delete(1.0, tk.END)
-        OutPut_entry.insert(tk.END, f"请查看配置文件或连接方式是否正确\n")
+        OutPut_entry.insert(tk.END, f"请查看配置文件或连接方式是否正确{e}\n")
 
 
 def clear_Button():
@@ -334,7 +342,7 @@ def static_test(Performance_testing_drop_range):
         value = float(value)
     else:
         messagebox.showerror("错误", "请手动输入信噪比")
-    if ave - 0.5 <= value <= ave + 0.5:
+    if ave - 0.5 <= value <= ave + 0.5:  # 这个条件首先检查 value 是否在 ave 的0.5范围内（包括边界）。
         value1 = max(sqf_list) - min(sqf_list)
         values = round(value1, 2)
         if values > float(Performance_testing_drop_range):
@@ -344,8 +352,8 @@ def static_test(Performance_testing_drop_range):
             max_value = max(sqf_list)
             result = [round(max_value, 2) - round(x, 2) for x in sqf_list]
             rounded_result = [round(num, 2) for num in result]
-            print("result:", rounded_result)
-            print("范围值：", Performance_testing_drop_range)
+            print("静态result:", rounded_result)
+            print("静态范围值：", Performance_testing_drop_range)
             results = [
                 x
                 for x in rounded_result
@@ -618,7 +626,7 @@ def api_modem_type():
                 "symbol_rate": symbol_rate,
                 "sqf": sqf,
             }
-        elif contents[1] == Color.modem_503.value:
+        elif contents[1] == Color.modem_UHP.value:
             uhp_oid = UHP_OID()
             snmp_sn = snmp_get(uhp_oid.SN)
             snmp_modem = snmp_get(uhp_oid.SR)
@@ -637,7 +645,7 @@ def api_modem_type():
                 "错误", "modem类型匹配失败，请确认当前modem类型是否填写正确"
             )
     except Exception as e:
-        OutPut_entry.insert(tk.END, f"连接失败请检查连接配置或网络情况......\n")
+        OutPut_entry.insert(tk.END, f"连接失败请检查连接配置或网络情况......{e}\n")
 
 
 def http_requests_sn_ht2500_api():
@@ -658,8 +666,8 @@ def http_requests_modem_ht2500_api():
 
 def http_requests_modem_503_api():
     url_modem = "http://192.168.0.1/action/fwdStatusGet"
-    response_sn = requests.get(url=url_modem)
-    res_modem = response_sn.json()
+    response_modem = requests.get(url=url_modem)
+    res_modem = response_modem.json()
     return res_modem
 
 
