@@ -342,7 +342,9 @@ def static_test(Performance_testing_drop_range):
         value = float(value)
     else:
         messagebox.showerror("错误", "请手动输入信噪比")
-    if ave - 0.5 <= value <= ave + 0.5:  # 这个条件首先检查 value 是否在 ave 的0.5范围内（包括边界）。
+    if (
+        ave - 0.5 <= value <= ave + 0.5
+    ):  # 这个条件首先检查 value 是否在 ave 的0.5范围内（包括边界）。
         value1 = max(sqf_list) - min(sqf_list)
         values = round(value1, 2)
         if values > float(Performance_testing_drop_range):
@@ -695,7 +697,7 @@ def snmp_get(oid: str):
 # 创建主窗口UI
 root = tk.Tk()
 root.geometry("800x600")
-root.title("V1.0.2 获取信噪比")
+root.title("V1.0.3 获取信噪比")
 # 创建Label控件来显示时间前缀
 standard_cn_label = tk.Label(root, text="标准天线信噪值:", width=15)
 standard_cn_label.grid(row=0, column=0)
