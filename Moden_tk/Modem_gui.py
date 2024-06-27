@@ -23,6 +23,12 @@ from pydantic import BaseModel
 from enum import Enum
 import subprocess
 from XTestRunner import HTMLTestRunner
+from matplotlib import rcParams
+
+# 设置全局字体为“Microsoft YaHei”（需要确保该字体已安装在系统上）
+rcParams["font.sans-serif"] = ["Microsoft YaHei"]
+# 解决保存图像是负号'-'显示为方块的问题
+rcParams["axes.unicode_minus"] = False
 
 # 全局列表来存储sqf值
 sqf_list = []
@@ -76,7 +82,7 @@ class HoverLineChartApp:
 
         # Plot the line chart
         (self.line,) = self.ax.plot(self.x_data, self.y_data, marker="o", pickradius=5)
-        self.ax.set_title("Hover over a point to see details")
+        self.ax.set_title("将鼠标悬停在点上以查看详细信息")
         self.ax.set_xlabel("number")
         self.ax.set_ylabel("SQF")
 
